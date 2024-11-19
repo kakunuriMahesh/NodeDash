@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-const PORT = 5000;
 const cors = require("cors");
 app.use(express.json()); // Ensures JSON body parsing
 app.use(cors());
+
+const PORT = 5000;
 let url = "https://gorest.co.in/public/v2/users";
 
 // Middleware to set authentication headers
@@ -24,7 +25,7 @@ app.use((req, res, next) => {
 // let base_url = 'http://localhost:5000'
 app.post('/adduser', async (req, res) => {
   const userData = req.body;
-
+  console.log(userData)
   try {
     // Validate payload before sending
     if (!userData.name || !userData.email || !userData.gender || !userData.status) {
@@ -39,6 +40,7 @@ app.post('/adduser', async (req, res) => {
 
     const responseBody = await response.text();
     if (!response.ok) {
+      // res.send(`error occured: ${responseBody}`)
       response.send(`error occured: ${responseBody}`)
     }
 
